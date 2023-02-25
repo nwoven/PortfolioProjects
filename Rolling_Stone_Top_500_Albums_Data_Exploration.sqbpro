@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/nwevr/Desktop/Top_500_Albums.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="1126"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,9:mainalbumlist"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="albumlist" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="59"/><column index="2" value="42"/><column index="3" value="300"/><column index="4" value="300"/><column index="5" value="300"/><column index="6" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">-- Count number of times an artist is in the list
+SELECT
+	Artist,
+	count(Artist) as count
+FROM
+	albumlist
+GROUP BY
+	Artist</sql><sql name="SQL 2">-- Count number of times a genre is in the list
+SELECT
+	Genre,
+	count(Genre) as count
+FROM
+	albumlist
+GROUP BY
+	Genre
+-- There are a lot of albums that have multiple genres as the main genre, which is inevitable with artists (e.g.: Rubber Soul by The Beatles is listed as rock and pop). 
+-- Next query will be to try to get distinct genres and their frequency throughout the list.</sql><sql name="SQL 3">-- Finding specific main album genre frequency in albumlist 
+SELECT
+	count(CASE WHEN Genre like &quot;%Rock%&quot; THEN &quot;1&quot; END) as Rock,
+	count(CASE WHEN Genre like &quot;%Pop%&quot; THEN &quot;1&quot; END) as Pop,
+	count(CASE WHEN Genre like &quot;%Electronic%&quot; THEN &quot;1&quot; END) as Electronic,
+	count(CASE WHEN Genre like &quot;%Blues%&quot; THEN &quot;1&quot; END) as Blues,
+	count(CASE WHEN Genre like &quot;%Folk%&quot; THEN &quot;1&quot; END) as Folk,
+	count(CASE WHEN Genre like &quot;%World%&quot; THEN &quot;1&quot; END) as World,
+	count(CASE WHEN Genre like &quot;%Country%&quot; THEN &quot;1&quot; END) as Country,
+	count(CASE WHEN Genre like &quot;%Classical%&quot; THEN &quot;1&quot; END) as Classical,
+	count(CASE WHEN Genre like &quot;%Stage%&quot; THEN &quot;1&quot; END) as &quot;Stage/Screen&quot;,
+	count(CASE WHEN Genre like &quot;%Funk%&quot; THEN &quot;1&quot; END) as &quot;Funk/Soul&quot;,
+	count(CASE WHEN Genre like &quot;%Reggae%&quot; THEN &quot;1&quot; END) as Reggae,
+	count(CASE WHEN Genre like &quot;%Jazz%&quot; THEN &quot;1&quot; END) as Jazz,
+	count(CASE WHEN Genre like &quot;%Latin%&quot; THEN &quot;1&quot; END) as Latin,
+	count(CASE WHEN Genre like &quot;%Hip%&quot; THEN &quot;1&quot; END) as &quot;Hip Hop&quot;
+FROM
+	albumlist
+
+</sql><sql name="SQL 4">-- Year count frequency throughout the list; which year has the most albums on the list
+SELECT
+	Year,
+	count(Year) as count
+FROM
+	albumlist
+GROUP BY
+	Year
+ORDER BY
+	count DESC</sql><current_tab id="0"/></tab_sql></sqlb_project>
